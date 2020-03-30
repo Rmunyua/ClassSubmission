@@ -1,0 +1,1 @@
+Financial Analysis------------------Total months: 86Total: $-196785Average profile: -2315.1176470588234Greatest Increase: ['Feb-2012', 1926159]Greatest Decrease: ['Sep-2013', -2196167]
