@@ -92,19 +92,21 @@ def start(start):
 
     return jsonify(temp_value)
     session.close()
-    
-# Create session and query    
+
+# Create session and query 
 @app.route("/api/v1.0/<start>/<end>")
-def se_date(start_date, end_date):
+def stEnd(start, end):
 
     session = Session(engine)
+    sd = dt.datetime.strptime(start, '%Y-%m-%d')
+    ed = dt.datetime.strptime(end, '%Y-%m-%d')
     temp_both = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs))\
-                     .filter(Measurement.date >= start_date)\
-                     .filter(Measurement.date <= end_date).all()
+        .filter(Measurement.date >= sd)\
+        .filter(Measurement.date <= ed).all()
     temp_list = list(np.ravel(temp_both))
 
-    return jsonify(temp_list)
     session.close()
+    return jsonify(temp_list)
 
 
 if __name__ == "__main__":
