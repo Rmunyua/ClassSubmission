@@ -80,14 +80,14 @@ def start(start):
 
     # Calculate `TMIN`, `TAVG`, and `TMAX`
     session = Session(engine)
-    temp=session.query(func.min(Measurement.tobs),func.avg(Measurement.tobs),func.max(Measurement.tobs)\
-                .filter(Measurement.date >= start)).all()
+    temp=session.query(func.min(Measurement.tobs),func.avg(Measurement.tobs),func.max(Measurement.tobs))\
+                .filter(Measurement.date >= start).all()
     temp_value = []
     for TMIN, TAVG, TMAX in temp:
         temp_dict = {}
         temp_dict["TMIN"] = temp[0][0]
         temp_dict["TAVG"] = temp[0][1]
-        temp_dict["TMAX"] = temp[0][1]
+        temp_dict["TMAX"] = temp[0][2]
         temp_value.append(temp_dict)
 
     return jsonify(temp_value)
