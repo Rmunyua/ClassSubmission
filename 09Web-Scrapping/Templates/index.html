@@ -30,7 +30,7 @@
             <div class="col-md-8">
                 <h2>Featured Mars Image</h2>
                 <!-- if images is False/None/non-existent, then default to error message -->
-                <img src="{{mars.feature_image}}" class="img-responsive" alt="Responsive image">
+                <img src="{{mars.featured_image}}" class="img-responsive" alt="Responsive image">
             </div>
             <div class="col-md-4">
                 <!-- Mars Facts -->
@@ -47,7 +47,7 @@
             <div class="page-header">
                 <h2 class="text-center">Mars Hemispheres</h2>
             </div>
-            {% for hemisphere in mars.hemisphere_image_urls %}
+            {% for hemisphere in mars.hemisphere %}
             <div class="col-md-6">
                 <div class="thumbnail">
                     <!-- if images is False/None/non-existent, then default to error message -->

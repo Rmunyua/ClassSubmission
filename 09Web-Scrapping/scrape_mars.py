@@ -5,12 +5,12 @@ import time
 import pandas as pd
 from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo
-import mission_to_mars
+import Mission_to_Mars
 
 app = Flask(__name__)
 
 # Make a connection to Mongo
-app.config["MONGO_URI"] = "mongodb://localhost:27017/mission_to_mars"
+app.config["MONGO_URI"] = "mongodb://localhost:27017/Mission_to_Mars"
 mongo = PyMongo(app)
 
 #create a root route `/`
@@ -24,7 +24,7 @@ def index():
 @app.route("/scrape")
 def scraper():
     mars = mongo.db.mars
-    mars_data = mission_to_mars.scrape_all()
+    mars_data = Mission_to_Mars.scrape_all()
     mars.replace_one({}, mars_data, upsert=True)
     return redirect("/")
 

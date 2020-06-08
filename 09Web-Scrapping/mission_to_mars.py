@@ -12,11 +12,12 @@ def scrape_all():
     title,paragraph = mars(browser)
     data={"title": title,
          "paragraph": paragraph,
-         "featured_image_url": featured_img(browser),
-         "weather_url": mars_weather(browser),
-         "facts_url": mars_facts(browser),
-         "hemispheres_url": hemisphere(browser)
+         "featured_image": featured_img(browser),
+         "weather": mars_weather(browser),
+         "fact": mars_facts(browser),
+         "hemisphere": hemisphere(browser)
     }
+
     browser.quit()
     return data
 
@@ -53,8 +54,10 @@ def featured_img(browser):
     #access the webpage and parse with Beautiful Soup
     html_img = browser.html
     soup = BeautifulSoup(html_img, 'html.parser')
-    image = soup.find('article').find('a').get("data-fancybox-href")
-    image_url = image + 'https://jpl.nasa.gov'
+    feature_image = soup.find('figure', class_='lede')
+    image = feature_image.a['href']
+    main_image = 'https://jpl.nasa.gov'
+    image_url = main_image + image
     return image_url 
 
 # define a function for Mars weather
@@ -62,7 +65,7 @@ def mars_weather(browser):
     #URL of page to be scraped
     weather_url="https://twitter.com/marswxreport?lang=en"
     browser.visit(weather_url)
-    time.sleep(1) # https://stackoverflow.com/questions/15866426/beautifulsoup-not-grabbing-dynamic-content
+    time.sleep(1)
     
     #access the webpage and parse with Beautiful Soup
     html_weather = browser.html
@@ -118,7 +121,6 @@ def hemisphere(browser):
         Sum['title']=title
         Sum['url']=url
         list.append(Sum)
-        browser.visit(Sum)
         #go to the original page
         browser.visit(hemispheres_url)
         time.sleep(1)
